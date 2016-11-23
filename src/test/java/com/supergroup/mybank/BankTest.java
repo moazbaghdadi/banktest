@@ -74,7 +74,6 @@ public class BankTest {
 	@Test
 	public void testTransferShouldFailAtWithdrawal() throws Exception {
 		int amount = 10;
-		AbstractAccount account2 = Mockito.mock(AbstractAccount.class);
 		
 		Mockito.when(accountDao.find(1)).thenReturn(account);
 		
