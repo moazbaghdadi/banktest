@@ -3,8 +3,9 @@ package com.supergroup.mybank;
 public class CreditAccount extends AbstractAccount {
 	private int creditLine;
 
-	public CreditAccount(int accountNumber, int balance) {
+	public CreditAccount(int accountNumber, int balance, int creditLine) {
 		super(accountNumber, balance);
+		this.creditLine = creditLine;
 	}
 
 	@Override
