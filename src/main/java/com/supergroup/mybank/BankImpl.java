@@ -3,9 +3,11 @@ package com.supergroup.mybank;
 public class BankImpl implements Bank {
 	
 	AccountDao accountDao;
+	AccountNumberGenerator generator;
 	
-	public BankImpl(AccountDao accountDao) {
+	public BankImpl(AccountDao accountDao, AccountNumberGenerator generator) {
 		this.accountDao = accountDao;
+		this.generator = generator;
 	}
 
 	public boolean withdrawal(int accountNumber, int amount) {
@@ -32,7 +34,24 @@ public class BankImpl implements Bank {
 	}
 
 	public AbstractAccount createAccount(int balance, int creditLine, AccountType accountType) {
-		// TODO Auto-generated method stub
+		AbstractAccount account = null;
+		boolean result;
+		switch (accountType) {
+		case SAVING_ACCOUNT:
+			account = new SavingAccount(generator.generateNumber(), balance);
+			result = accountDao.save(account);
+			if (result) {
+				return account;
+			}
+			break;
+		case CREDIT_ACCOUNT:
+			account = new CreditAccount(generator.generateNumber(), balance, creditLine);
+			result = accountDao.save(account);
+			if (result) {
+				return account;
+			}
+			break;
+		}
 		return null;
 	}
 
